@@ -53,64 +53,64 @@ $objDB = new consultas;
 
 switch ($caso) {
 	case 1:  ### LOGIN ###
-		$pag		=	$objDB->iniciarSesion($_POST['txtUsuario'],$_POST['txtPassword']);
+		$pag		=	$objDB->iniciarSesion(trim($_POST['txtUsuario']),trim($_POST['txtPassword']));
 		/*var_dump($pag);*/
 	break;
 	case 2: ### LOGOUT ###
 		$pag		=	$objDB->logout();
 	break;
 	case 10: ### REGISTRO ###
-		$txtUsuario		=	$objDB->escaparString($_POST['txtUsuario']);
-		$txtPassword	=	$objDB->escaparString($_POST['txtPassword']);
-		$txtMail		=	$objDB->escaparString($_POST['txtMail']);
-		$txtNombre		=	$objDB->escaparString($_POST['txtNombre']);
-		$txtApellido	=	$objDB->escaparString($_POST['txtApellido']);
-		$cmbSexo		=	$objDB->escaparString($_POST['cmbSexo']);
-		$txtRut			=	$objDB->escaparString($_POST['txtRut']);
+		$txtUsuario		=	trim($_POST['txtUsuario']);
+		$txtPassword	=	trim($_POST['txtPassword']);
+		$txtMail		=	trim($_POST['txtMail']);
+		$txtNombre		=	trim($_POST['txtNombre']);
+		$txtApellido	=	trim($_POST['txtApellido']);
+		$cmbSexo		=	trim($_POST['cmbSexo']);
+		$txtRut			=	trim($_POST['txtRut']);
 		$salt			=	'workmaps';
 		$pag			=	$objDB->registro($txtUsuario,$txtPassword,$txtMail,$txtNombre,$txtApellido,$cmbSexo,$txtRut,$salt);
 	break;
 	case 11: #ACTIVAR MAIL
-		$txtActivar		=	$objDB->escaparString($_POST['txtActivar']);
+		$txtActivar		=	trim($_POST['txtActivar']);
 		$pag			=	$objDB->activarMail($txtActivar);
 	break;
 	case 12: #USUARIO EXISTE?
-		$usuario		=	$objDB->escaparString($_POST['usuario']);
+		$usuario		=	trim($_POST['usuario']);
 		echo $objDB->userExiste($usuario);
 	break;
 	case 13: #MAIL EXISTE?
-		$mail			=	$objDB->escaparString($_POST['mail']);
+		$mail			=	trim($_POST['mail']);
 		echo $objDB->mailExiste($mail);
 	break;
 	case 14: #RUT EXISTE?
-		$rut			=	$objDB->escaparString($_POST['rut']);
+		$rut			=	trim($_POST['rut']);
 		echo $objDB->rutExiste($rut);
 	break;
 	case 15: #MAIL UNICO?
-		$txtEmailN		=	$_POST['txtEmailN'];
+		$txtEmailN		=	trim($_POST['txtEmailN']);
 		echo $objDB->mailUnico($txtEmailN);
 	break;
 	case 16: #CONTRASEÑA COINCIDE ?
-		$txtPassword	=	$_POST['txtPassword'];
-		$id				=	$_POST['id'];
+		$txtPassword	=	trim($_POST['txtPassword']);
+		$id				=	trim($_POST['id']);
 		echo $objDB->passCoincide($txtPassword,$id);
 	break;
 //Modificar cuenta
 	case 20: #MODIFICAR E-AMIL
-		$id_txtUsuario	=	$_REQUEST['id_txtUsuario'];
-		$txtEmailN		=	$_REQUEST['txtEmailN'];
+		$id_txtUsuario	=	trim($_REQUEST['id_txtUsuario']);
+		$txtEmailN		=	trim($_REQUEST['txtEmailN']);
 		$pag			=	$objDB->modMail($id_txtUsuario,$txtEmailN);
 	break;
 	case 21: #MODIFICAR CONTRASEÑA
-		$id_txtUsuario	=	$objDB->escaparString($_POST['id_txtUsuario']);
-		$txtPasswordNew	=	$objDB->escaparString($_REQUEST['txtPasswordNew']);
+		$id_txtUsuario	=	trim($_POST['id_txtUsuario']);
+		$txtPasswordNew	=	trim($_REQUEST['txtPasswordNew']);
 		$pag			=	$objDB->modPass($id_txtUsuario,$txtPasswordNew);
 	break;
 //ADMINISTRACION::MODIFICAR CUENTAS
 	case 30: #MODIFICAR CUENTAS (ADMINISTRAR CUENTAS)
-	$id					=	$objDB->escaparString($_REQUEST['id']);
-	$tipo				=	$objDB->escaparString($_REQUEST['tipo']);
-	$nombre				=	$objDB->escaparString($_REQUEST['nombre']);
+	$id					=	trim($_REQUEST['id']);
+	$tipo				=	trim($_REQUEST['tipo']);
+	$nombre				=	trim($_REQUEST['nombre']);
 		switch($tipo){
 			case 1:#BANEAR
 				$objDB->banear($id);
