@@ -3,6 +3,13 @@
 header('Content-Type: text/html; charset=ISO-8859-1');
 include './session.php';
 /*include './modulos/funciones.php';*/
+
+/*			<link	rel="stylesheet"	href="css/skel-noscript.css" />
+			<link	rel="stylesheet"	href="css/style.css" />
+			<link	rel="stylesheet"	href="css/style-desktop.css" />
+            <!-- css netsur -->
+            <link	rel="stylesheet"	href="css/jquery.autocomplete.css" />
+            <link	rel="stylesheet"	href="js/colorbox.css" media="screen" />*/
 ?>
 <!DOCTYPE HTML>
 <!--
@@ -16,6 +23,16 @@ include './session.php';
 		<meta name="description" content="" />
 		<meta name="keywords" content="" />
 		<link href="http://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,700,900,300italic" rel="stylesheet" />
+		<noscript>
+		<style type="text/css" title="currentStyle">
+			@import "css/skel-noscript.css";
+			@import "css/style.css";
+			@import "css/style-desktop.css";
+			
+			@import "css/jquery.autocomplete.css";
+			@import "js/colorbox.css";
+		</style>
+		</noscript>
 		<script src="js/jquery.min.js"></script>
 		<script src="js/jquery.dropotron.js"></script>
 		<script src="js/config.js"></script>
@@ -27,15 +44,6 @@ include './session.php';
 		<script src="js/ui.datepicker.js"></script>-->
         <script src="js/jquery.colorbox.js"></script>
         <script src="js/jquery.autocomplete.js"></script>
-        <script src="js/jquery.tablesorter.min.js"></script>
-		<noscript>
-			<link	rel="stylesheet"	href="css/skel-noscript.css" />
-			<link	rel="stylesheet"	href="css/style.css" />
-			<link	rel="stylesheet"	href="css/style-desktop.css" />
-            <!-- css netsur -->
-            <link	rel="stylesheet"	href="css/jquery.autocomplete.css" />
-            <link	rel="stylesheet"	href="js/colorbox.css" media="screen" />
-		</noscript>
 		<!--[if lte IE 8]>
         <script src="js/html5shiv.js"></script>
         <link rel="stylesheet" href="css/ie8.css" />

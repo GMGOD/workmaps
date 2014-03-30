@@ -1,6 +1,5 @@
 <?php
 include 'conexion.php';
-include '../session.php';
 class consultas{
 	var $mysql;
 	
@@ -95,14 +94,14 @@ class consultas{
 			$this->mysql->insertData($sql,array($this->mysql->lastID(),md5(md5($salt).md5($txtPassword)),date('Y-m-d H:i:s', strtotime(date('Y-m-d H:i:s'). ' + 1 days'))));
 			
 		$this->mysql->__destruct();
-		
-		if(!emails($txtMail,NULL,$txtUsuario,1,md5(md5($salt).md5($txtPassword)))){
+		return "../index.php?sec=index";
+/*		if(!emails($txtMail,NULL,$txtUsuario,1,md5(md5($salt).md5($txtPassword)))){
 			return "../index.php?sec=registro&val=1";
 			#DEBE REDIRECCIONAR SI EL MAIL NO FUE ENVIADO
 		}else{
 			return "../index.php?sec=activar&val=0";
 			#DEBE REDIRECCIONAR SI ES LA PRIMERA VEZ QUE ENTRA hacia una web de creacion de curriculum
-		}
+		}*/
 	}
 	
 	public function activarMail($txtActivar){
@@ -240,7 +239,6 @@ class consultas{
 		foreach ($this->mysql->getData($sql,array($id)) as $data){
 			$id2		=	$data['id'];
 		}
-		$this->mysql->__destruct();
 		if($id2 == 0){
 			$sql = "UPDATE miembros SET activar=2 WHERE id = ?";
 			if($this->mysql->editData($sql,array($id)) <= 1){
@@ -253,6 +251,7 @@ class consultas{
 				return TRUE;
 			}
 		}
+		$this->mysql->__destruct();
 		return FALSE;
 	}
 	public function confirmar($id){
@@ -278,6 +277,15 @@ class consultas{
 	public function getPass($id){
 		$sql = "SELECT id FROM miembros WHERE id = ?";
 		
+		$resp = $this->mysql->getData($sql,array($id));
+		$this->mysql->__destruct();
+		return $resp;
+	}
+	public function getUsuarios($id){
+		$sql = "SELECT
+		m.id, m.user_nick, m.email, ui.nombre, ui.apellido, ui.rut, ui.sex, m.state, m.fecha_creacion, m.group_id, m.activar
+		FROM miembros m
+		LEFT JOIN user_info ui ON m.id=ui.userid WHERE m.id <> ? ORDER BY m.fecha_creacion DESC";
 		$resp = $this->mysql->getData($sql,array($id));
 		$this->mysql->__destruct();
 		return $resp;

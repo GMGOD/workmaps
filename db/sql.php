@@ -1,5 +1,6 @@
 <?php
 include 'consultas.php';
+include '../session.php';
 $caso = $_REQUEST['caso'];
 
 #echo "Error Codigo Caso: ".$caso."<br>";
