@@ -62,7 +62,7 @@ function opciones(id,tipo,nombre){
 							"sScrollY": 250,
 							"bStateSave": true
                         });
-						$("div.toolbar").html('<b>Exportar a excel</b> <a href="reportes/Administrar_usuarios_xls.php"><img src="../images/excel.png" width="32" height="32"/></a>');
+						$("div.toolbar").html('<b>Exportar a excel</b> <a href="reportes/Administrar_usuarios_xls.php?id=<?php echo $_SESSION['www_id']?>"><img src="../images/excel.png" width="32" height="32"/></a>');
                     } );
                 </script> 
           <!-- tabla dinamica -->
