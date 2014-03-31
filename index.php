@@ -24,7 +24,7 @@ include './session.php';
 		<meta name="keywords" content="" />
 		<link href="http://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,700,900,300italic" rel="stylesheet" />
 		<noscript>
-		<style type="text/css" title="currentStyle">
+		<style type="text/css" title="mapWorks">
 			@import "css/skel-noscript.css";
 			@import "css/style.css";
 			@import "css/style-desktop.css";
