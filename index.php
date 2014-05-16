@@ -51,8 +51,8 @@ include './session.php';
 	</head>
 	<body class="homepage">
     	<?php
-				require_once("menu.php");
-				require_once("pag.php");
+				require_once "menu.php";
+				require_once "pag.php";
         ?> 
 				
 				<!-- Footer

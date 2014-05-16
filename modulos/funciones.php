@@ -1,5 +1,4 @@
 <?php
-include('./SQL/class.conexion.php');
 #include('../session.php');
 
 function ConvierteNumeroANombreMes($num_mes){
@@ -114,7 +113,6 @@ function VueltaFecha($fecha){
   $mm = substr($fecha,5,2);
   $aa = substr($fecha,0,4);
   
-  
  $fecha = "$dd-$mm-$aa";
 
 if ($mm==1){$mm="Enero";}
@@ -145,46 +143,53 @@ function VueltaFechaSinDia($fecha){
 return $fecha;
 }
 function emails($correo,$mensaje = NULL,$usuario = NULL,$tipo,$codigo = NULL){
-	require('../modulos/class.phpmailer.php');
-	$mail = new PHPMailer;
-$mail->isSMTP();                                      // Set mailer to use SMTP
-$mail->Host = 'smtp1.example.com;smtp2.example.com';  // Specify main and backup server
-$mail->SMTPAuth = true;                               // Enable SMTP authentication
-$mail->Username = 'jswan';                            // SMTP username
-$mail->Password = 'secret';                           // SMTP password
-$mail->SMTPSecure = 'tls';                            // Enable encryption, 'ssl' also accepted
+require 'class.mandrill.php';
 
-$mail->From = 'noreply@workmaps.cl';
-$mail->FromName = 'WorkMaps';
-$mail->addAddress($correo, $usuario);  // Add a recipient
-/*$mail->addAddress('ellen@example.com');               // Name is optional
-$mail->addReplyTo('info@example.com', 'Information');*/
-/*$mail->addCC('cc@example.com');
-$mail->addBCC('bcc@example.com');*/
+// If are not using environment variables to specific your API key, use:
+$mandrill = new Mandrill("4VFw7zwT1JfY-KNXnACEMQ");
 
-/*$mail->WordWrap = 50;   */                              // Set word wrap to 50 characters
-/*$mail->addAttachment('/var/tmp/file.tar.gz');         // Add attachments
-$mail->addAttachment('/tmp/image.jpg', 'new.jpg');    // Optional name*/
-$mail->isHTML(true);                                  // Set email format to HTML
+
 switch($tipo){
 	case 1:
-		$mail->Subject = 'Hola '.$usuario;
-		$mail->Body    = 'Te has incrito a la mejor plataforma de busqueda de trabajo, pero falta un paso para terminar el procesos<br>
-		de inscripcion. Te falta activar tu cuenta!<br>
-		<br>
-		<strong>Codigo :</strong>'.$codigo;
-		$mail->Body	   = '<br>Espero que disfrutes de nuestra aplicacion!...';
-/*		$mail->AltBody = 'This is the body in plain text for non-HTML mail clients';*/
+$message = array(
+    'subject' => 'Test message' . $usuario,
+    'from_email' => 'info@workmaps.cl',
+    'html' => '<p>this is a test message with Mandrill\'s PHP wrapper!.</p>',
+    'to' => array(
+				array('email' => $correo, 'name' => $usuario)
+				),
+				'merge_vars' => array(
+									array(
+										'rcpt' => $correo,
+										'vars' =>
+										array(
+											array(
+												'name' => 'FIRSTNAME',
+												'content' => 'Recipient 1 first name'),
+											array(
+												'name' => 'LASTNAME',
+												'content' => 'Last name')
+											)
+									)
+								)
+				);
 	break;
 	
 	default:
 	break;
 }
+$template_name = 'Stationary';
 
-if(!$mail->send()) {
-	return $mail->ErrorInfo;
-}else{
-	return true;
-}	
+$template_content = array(
+    array(
+        'name' => 'main',
+        'content' => 'Hi *|FIRSTNAME|* *|LASTNAME|*, thanks for signing up.'),
+    array(
+        'name' => 'footer',
+        'content' => 'Copyright 2012.')
+
+);
+
+return $mandrill->messages->sendTemplate($template_name, $template_content, $message);
 }
 ?>

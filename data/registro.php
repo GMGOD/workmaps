@@ -3,6 +3,11 @@ $(document).ready(function(){
 	if(<?php echo $_GET['val']; ?> == 1){
 		$("#respError").html('<img src="./images/error.png" /> El mail no ha podido ser enviado, espere a que un administrador active su cuenta.');
 	}
+$(document).keypress(function(e) {
+  if(e.which == 13) {
+    validar();
+  }
+});
 });
 function esRut(value){ if(value == ''){return false;}var rexp = new RegExp(/^([0-9])+\-([kK0-9])+$/);if(!value.match(rexp)){return false;}var RUT  = value.split("-");var elRut = RUT[0];var factor = 2;var suma = 0;var dv;for(i=(elRut.length-1); i>=0; i--){factor = factor > 7 ? 2 : factor;suma += parseInt(elRut[i])*parseInt(factor++);}var ret = true;dv = 11 -(suma % 11);if(dv == 11){dv = 0;}else if (dv == 10){dv = "k";}if(dv != RUT[1].toLowerCase()){ret= false;}return ret}
 	 

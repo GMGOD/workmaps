@@ -100,12 +100,12 @@ switch ($caso) {
 	case 20: #MODIFICAR E-AMIL
 		$id_txtUsuario	=	trim($_REQUEST['id_txtUsuario']);
 		$txtEmailN		=	trim($_REQUEST['txtEmailN']);
-		$pag			=	$objDB->modMail($id_txtUsuario,$txtEmailN);
+		echo $objDB->modMail($id_txtUsuario,$txtEmailN);
 	break;
 	case 21: #MODIFICAR CONTRASEÑA
 		$id_txtUsuario	=	trim($_POST['id_txtUsuario']);
 		$txtPasswordNew	=	trim($_REQUEST['txtPasswordNew']);
-		$pag			=	$objDB->modPass($id_txtUsuario,$txtPasswordNew);
+		echo	$objDB->modPass($id_txtUsuario,$txtPasswordNew);
 	break;
 //ADMINISTRACION::MODIFICAR CUENTAS
 	case 30: #MODIFICAR CUENTAS (ADMINISTRAR CUENTAS)

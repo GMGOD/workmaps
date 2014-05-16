@@ -98,7 +98,7 @@ $rowcount = $pdo->editData(sql, $params);
 		} 
 		
 		public function __destruct() { 
-			$this->conn = null; 
+			$this->conn = null;
 		}
 /* funciones pripias */
 /*	public function escaparString($value){#no funciona

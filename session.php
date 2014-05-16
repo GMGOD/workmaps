@@ -2,7 +2,7 @@
 if(!isset($_SESSION)){ 
         session_start(); 
     }
-if ($_SESSION['www_id'] == "") {
+if ($_SESSION['www_id'] == "" || $_SESSION['www_id'] == NULL) {
 if(!isset($_SESSION))
         session_start();
 			$_SESSION['www_id'] = 0;

@@ -9,6 +9,11 @@ $(document).ready(function(){
 	}else if(<?php echo $_GET['val']; ?> == 4){
 		$("#respError").html('<img src="./images/error.png" /> Error al realizar la operacion');
 	}
+$(document).keypress(function(e) {
+  if(e.which == 13) {
+    validar();
+  }
+});
 });
 function validar(){
 	ok1 = false; ok2 = false; 

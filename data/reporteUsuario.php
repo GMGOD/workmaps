@@ -2,6 +2,7 @@
 include './db/consultas.php';
 $objDB = new consultas;
 $listaUsuarios = $objDB->getUsuarios(trim($_SESSION['www_id']));
+$objDB->destruct();
 ?>
 <script type="text/javascript" >
 function opciones(id,tipo,nombre){

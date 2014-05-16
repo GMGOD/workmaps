@@ -3,7 +3,15 @@ $(document).ready(function(){
 	if(<?php echo $_GET['val']; ?> == 1){
 				$("#respActivar").html('<img src="./images/error.png" /> ');
 				$("#respActivarTexto").html('El codigo no es valido.');
+	}else if(<?php echo $_GET['val']; ?> == 3){
+				$("#respActivar").html('<img src="./images/error.png" /> ');
+				$("#respActivarTexto").html('Ocurrio un problema activando su cuenta, porfavor vuelvalo a intentar.');	
 	}
+$(document).keypress(function(e) {
+  if(e.which == 13) {
+    validar();
+  }
+});
 });
 function validar(){
 
