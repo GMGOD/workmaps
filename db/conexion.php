@@ -66,7 +66,7 @@ $rowcount = $pdo->editData(sql, $params);
 		} 
 		}
 
-		public function getData($sql,$params) { 
+		public function getData($sql,$params = NULL) { 
 		try { 
 		  $this->stmt = $this->conn->prepare($sql); 
 		  $this->stmt->execute($params);

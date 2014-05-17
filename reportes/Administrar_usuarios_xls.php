@@ -1,8 +1,9 @@
 <?
 include '../db/consultas.php';
 $id = $_REQUEST['id'];
+$grupo = $_REQUEST['grupo'];
 $objDB = new consultas;
-$listaUsuarios = $objDB->getUsuarios(trim($id));
+$listaUsuarios = $objDB->getUsuarios(trim($id),trim($grupo));
 header('Content-type: application/vnd.ms-excel');
 header("Content-Disposition:inline; filename=Reporte_Usuarios_".date('d-m-Y').".xls");
 ?>

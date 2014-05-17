@@ -1,6 +1,6 @@
 <?php
-include 'conexion.php';
-include '../modulos/funciones.php';
+require_once 'conexion.php';
+require_once 'funciones.php';
 class consultas{
 	var $mysql;
 	
@@ -300,6 +300,16 @@ class consultas{
 	}
 	public function getDatos($id){
 		$sql = "SELECT * FROM miembros WHERE id = ?";
+		$resp = $this->mysql->getData($sql,array($id));
+		
+		return $resp;
+	}
+	public function getUsuarios($id,$grupo){
+		if($grupo != 99){return false;}
+		$sql = "SELECT
+		m.id, m.user_nick, m.email, ui.nombre, ui.apellido, ui.rut, ui.sex, m.state, m.fecha_creacion, m.group_id, m.activar
+		FROM miembros m
+		LEFT JOIN user_info ui ON m.id=ui.userid WHERE m.id <> ? ORDER BY m.fecha_creacion DESC";
 		$resp = $this->mysql->getData($sql,array($id));
 		
 		return $resp;

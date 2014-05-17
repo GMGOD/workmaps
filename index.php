@@ -2,7 +2,7 @@
 #echo phpinfo();
 header('Content-Type: text/html; charset=ISO-8859-1');
 include './session.php';
-/*include './modulos/funciones.php';*/
+/*include 'db/funciones.php';*/
 
 /*			<link	rel="stylesheet"	href="css/skel-noscript.css" />
 			<link	rel="stylesheet"	href="css/style.css" />
