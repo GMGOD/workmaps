@@ -61,7 +61,7 @@ function salir(){
                             </li>
                             <?php if($_SESSION['www_nombre'] != "" || $_SESSION['www_nombre'] != ''){ ?>
 									<li
-										<?php if($sec == 'email' || $sec == 'password' || $sec == 'seguridad'){?>
+										<?php if($sec == 'configuracion'){?>
 											class="current_page_item_c"
 										<?php }else{ ?>
 											class="current_page_item_u"
@@ -69,9 +69,6 @@ function salir(){
 									>
 									<?=$_SESSION['www_nombre']?>
                             <ul>
-                                <li><a href="?sec=email&val=0">Cambiar e-mail</a></li>
-                                <li><a href="?sec=password&val=0">Cambiar password</a></li>
-                                <li><a href="?sec=seguridad">Seguridad</a></li>
                                 <li><a href="?sec=configuracion">Configuracion</a></li>
 								<li><form name="frmMenu" method="post"><a href="#" onclick="salir();">Logout</a></form></li>
 

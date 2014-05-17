@@ -8,7 +8,7 @@ if ($sec==''){
 	if( $sec == 'Administrar_usuarios' && $_SESSION['www_group_id'] <= 10){
 			$sec = '404';
 		}
-	if( ($sec == 'Administrar_usuarios' || $sec == 'seguridad' || $sec == 'configuracion') && ($_SESSION['www_id'] == '' || $_SESSION['www_id'] == 0) ){
+	if( ($sec == 'Administrar_usuarios' || $sec == 'configuracion') && ($_SESSION['www_id'] == '' || $_SESSION['www_id'] == 0) ){
 			$sec = '404';
 		}
 	switch ($sec){
@@ -29,12 +29,12 @@ if ($sec==''){
 		case 'configuracion':
 			include 'data/configuracion.php';
 		break;
-/*		case 'email':
-			include 'data/mail.php';
-		break;
-		case 'password':
-			include 'data/password.php';
-		break;*/
+#		case 'email':
+#			include 'data/mail.php';
+#		break;
+#		case 'password':
+#			include 'data/password.php';
+#		break;
 		#ADMINISTRACION::MODIFICACION::REPORTES
 		case 'Administrar_usuarios':
 			include 'data/reporteUsuario.php';
