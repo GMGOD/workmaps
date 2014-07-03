@@ -1,16 +1,31 @@
 <script type="text/javascript" >
 $(document).ready(function(){
-$("#include").load("./data/datos.php");
+$("#include").load("./data/empresaOpta.php");
 $("#menuizquierda1").addClass("conf_current_page_item");
 $("#menuizquierda2").removeClass();
 $("#menuizquierda3").removeClass();
 $("#menuizquierda4").removeClass();
+
 });
 
 function checkPass(pass){var x=pass;if (x.length<=4){return false;}else{return true;}}
 function checkEmail(email){	var x=email;var arroa=x.indexOf('@');var punto=x.lastIndexOf('.');if (arroa<1 || punto<arroa+2 || punto+2>=x.length){return false;}else{return true;}
 }
 
+function empresaOpta(){
+    $("#include").load("./data/empresaOpta.php");
+	$("#menuizquierda1").addClass("conf_current_page_item");
+	$("#menuizquierda2").removeClass();
+	$("#menuizquierda3").removeClass();
+	$("#menuizquierda4").removeClass();
+}
+function empresaSucces(){
+    $("#include").load("./data/empresaListo.php");
+	$("#menuizquierda1").addClass("conf_current_page_item");
+	$("#menuizquierda2").removeClass();
+	$("#menuizquierda3").removeClass();
+	$("#menuizquierda4").removeClass();
+}
 function vistaDatos(){
     $("#include").load("./data/datos.php");
 	$("#menuizquierda1").addClass("conf_current_page_item");
@@ -41,12 +56,9 @@ function vistaPass(){
 }
 
 function password(){
-
 	ok1 = false; ok2 = false; ok3 = false;
 	ok4 = false; ok5 = false; ok6 = false;
-	
 	MsgError = "";
-	
 	if($("#txtPasswordOld").val()==""){
 		ok1=true;
 		$("#txtPasswordNew").css('border-color','#F00 #F00 #F00 #F00');
@@ -109,14 +121,12 @@ function password(){
 								}
 						}
 					});
-
 	if (ok1) MsgError = MsgError + "<span style='color:#F00'>*</span> Debe ingresar su actual password <br>";
 	if (ok2) MsgError = MsgError + "<span style='color:#F00'>*</span> Las password debe tener mas de 4 digitos <br>";
 	if (ok3) MsgError = MsgError + "<span style='color:#F00'>*</span> Debe ingresar la nueva password <br>";
 	if (ok4) MsgError = MsgError + "<span style='color:#F00'>*</span> Debe volver a ingresar la nueva password (confirmar) <br>";
 	if (ok5) MsgError = MsgError + "<span style='color:#F00'>*</span> Las password no coinciden <br>";
 	if (ok6) MsgError = MsgError + "<span style='color:#F00'>*</span> La password antigua no coincide <br>";
-
 	if (ok1 || ok2 || ok3 || ok4 || ok5 || ok6) {
 	$("#respError").html('<div> <h2> <img src="./images/error.png" /> Debe solucionar estos problemas antes de seguir</h2> <span class="byline">'+MsgError+"</span></div>");
 	}else{
@@ -139,7 +149,6 @@ function password(){
 					});
 		}
 }
-
 function mail(){
 
 	ok1 = false; ok2 = false; ok3 = false;
@@ -264,6 +273,64 @@ function mail(){
 					});
 		}
 }
+function empresa(){
+
+	ok1 = false; ok2 = false; ok3 = false;
+	ok4 = false; ok5 = false;
+	
+	MsgError = "";
+	
+	if($("#file").val()==""){
+		ok1=true;
+			$("#files").css('border-color','#F00 #F00 #F00 #F00');
+		}else{
+			$("#files").css('border-color','#aaa #eaeaea #eaeaea #eaeaea');
+		}
+		
+	if($("#rutEmpresa").val()==""){
+			ok2=true;
+			$("#rutEmpresa").css('border-color','#F00 #F00 #F00 #F00');
+		}else{
+			$("#rutEmpresa").css('border-color','#aaa #eaeaea #eaeaea #eaeaea');
+		}
+		
+	if($("#nombreEmpresa").val()==""){
+		ok3=true;
+			$("#nombreEmpresa").css('border-color','#F00 #F00 #F00 #F00');
+		}else{
+			$("#nombreEmpresa").css('border-color','#aaa #eaeaea #eaeaea #eaeaea');
+			}
+	
+	if($("#razonSocial").val()==""){
+				ok4=true;
+				$("#razonSocial").css('border-color','#F00 #F00 #F00 #F00');
+		}else{
+				$("#razonSocial").css('border-color','#aaa #eaeaea #eaeaea #eaeaea');	
+		}
+	if($("#telefono").val()==""){
+				ok5=true;
+				$("#telefono").css('border-color','#F00 #F00 #F00 #F00');
+		}else{
+				$("#telefono").css('border-color','#aaa #eaeaea #eaeaea #eaeaea');	
+		}
+
+	if (ok1) MsgError = MsgError + "<span style='color:#F00'>*</span> Debe seleccionar una imagen <br>";
+	if (ok2) MsgError = MsgError + "<span style='color:#F00'>*</span> Debe ingresar el rut de la empresa <br>";
+	if (ok3) MsgError = MsgError + "<span style='color:#F00'>*</span> Debe ingresar el nombre de la empresa <br>";
+	if (ok4) MsgError = MsgError + "<span style='color:#F00'>*</span> Debe ingresar la razon social de la empresa <br>";
+	if (ok5) MsgError = MsgError + "<span style='color:#F00'>*</span> Debe ingresar el telefono de la empresa <br>";
+
+	if (ok1 || ok2 || ok3 || ok4 || ok5) {
+	$("#respError").html('<div> <h2> <img src="./images/error.png" /> Debe solucionar estos problemas antes de seguir</h2> <span class="byline">'+MsgError+"</span></div>");
+	}else{
+		empresaSucces();
+			/*$("#respError").html('');
+			var frm = self.document.frm;
+			frm.method="post";
+			frm.action="./db/sql.php?caso=22"; 
+			frm.submit();*/
+		}
+}
 </script>
 <!-- Main Wrapper -->
 
@@ -289,6 +356,7 @@ function mail(){
                           <li id="menuizquierda2"><a href="#!" onClick="vistaSeguridad(); return 0;">Seguridad</a></li>
                           <li id="menuizquierda3"><a href="#!" onClick="vistaEmail(); return 0;">Cambiar E-mail</a></li>
                           <li id="menuizquierda4"><a href="#!" onClick="vistaPass(); return 0;">Cambiar Password</a></li>
+                          <li id="menuizquierda1" ><a href="#!" onClick="empresaOpta(); return 0;">Optar a empresa</a></li>
                         </ul>
                       </nav>
                     </div>

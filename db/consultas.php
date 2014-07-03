@@ -247,6 +247,39 @@ class consultas{
 		}
 	}
 	
+	public function registrarEmpresa($id_txtUsuario,$imagen,$path,
+									 $rutEmpresa,$nombreEmpresa,$razonSocial,
+									 $telefono,$rubro = NULL,$correo = NULL){
+		
+		$sql = "INSERT INTO imagenempresa";
+		$sql .= "(idUsuario,idEmpresa,nombre,path)";
+		$sql .= "VALUES";
+		$sql .= "(?,?,?,?)";
+		#echo $sql.'<br>';
+		if($this->mysql->insertData($sql,array($id_txtUsuario,0,$imagen,$path)) <= 1){
+		}else{
+			return "../index.php?sec=configuracion&empresa=3";// imagen error
+		}
+		$last_id_image = $this->mysql->lastID();
+		$sql = "INSERT INTO empresa";
+		$sql .= "(rut,nombre,razonSocial,telefono,rubro,correo,imagen)";
+		$sql .= "VALUES";
+		$sql .= "(?,?,?,?,?,?,?)";
+		#echo $sql.'<br>';
+		if($this->mysql->insertData($sql,array($rutEmpresa,$nombreEmpresa,$telefono,$rubro,$correo,$last_id_image)) <= 1){
+		}else{
+			return "../index.php?sec=configuracion&empresa=4";// imagen insertada
+		}
+		$last_id_empresa = $this->mysql->lastID();
+		$sql = "UPDATE imagenempresa SET idEmpresa=? WHERE id = ?";
+		if($this->mysql->editData($sql,array($last_id_empresa,$last_id_image)) <= 1){
+			return "../index.php?sec=configuracion&empresa=0";// empresa insertada
+		}else{
+			return "../index.php?sec=configuracion&empresa=5";// vincular error
+		}
+		return 0;
+	}
+	
 	public function banear($id){
 		$sql = "UPDATE miembros SET state=2 WHERE id = ?";
 		if($this->mysql->editData($sql,array($id)) <= 1){
@@ -330,6 +363,72 @@ class consultas{
 		
 		return $resp;
 	}
+	public function empresa_insertarImagen($id_txtUsuario,$NewImageName,$DestRandImageName,$thumb_DestRandImageName,$DestinationDirectory,$ImageType,$ImageExt,$ImageSize){
+		
+		#VALIDO si la imagen ya existe...
+		$sql = "SELECT * FROM imagenempresa WHERE idUsuario = ?";
+		$resp = $this->mysql->getData($sql,array($id_txtUsuario));
+		foreach ($resp as $data){
+		$id								=	$data['id'];
+		$DestRandImageNameDELETE		=	$data['DestRandImageName'];
+		$thumb_DestRandImageNameDELETE	=	$data['thumb_DestRandImageName'];
+		$idEmpresaDELETE				=	$data['idEmpresa'];
+		}
+		if($id != ""){
+			#Ya que la imagen ya esta ingresada, para no perder el id le hago update y elimino la antigua imagen
+			$sql = "UPDATE imagenempresa SET
+					NewImageName=?,
+					DestRandImageName=?,
+					thumb_DestRandImageName=?,
+					DestinationDirectory=?,
+					ImageType=?,
+					ImageExt=?,
+					ImageSize=? WHERE id = ?";
+				if($this->mysql->editData($sql,array($NewImageName,$DestRandImageName,$thumb_DestRandImageName,$DestinationDirectory,$ImageType,$ImageExt,$ImageSize,$id_txtUsuario)) <= 1){
+					#elimino la imagen anterior de la carpeta
+					unlink($DestRandImageNameDELETE);
+					unlink($thumb_DestRandImageNameDELETE);
+				}else{
+					return FALSE;
+				}
+		/*=============*/
+		}else{
+			#Inserto imagen en la DB si esta no existia antes
+			$sql = "INSERT INTO imagenempresa";
+				$sql .= "(idUsuario,NewImageName,DestRandImageName,thumb_DestRandImageName,DestinationDirectory,ImageType,ImageExt,ImageSize)";
+				$sql .= "VALUES";
+				$sql .= "(?,?,?,?,?,?,?,?)";
+				#echo $sql.'<br>';
+				if($this->mysql->insertData($sql,array($id_txtUsuario,$NewImageName,$DestRandImageName,$thumb_DestRandImageName,$DestinationDirectory,$ImageType,$ImageExt,$ImageSize)) <= 1){
+				}else{
+					return FALSE;// imagen no insertada
+				}
+			#Creo la empresa para luego actualizarla al ingresar la empresa (formalmente ingresada y modifico estado)...
+			$last_id_image = $this->mysql->lastID();
+			$sql = "INSERT INTO empresa";
+				$sql .= "(imagen)";
+				$sql .= "VALUES";
+				$sql .= "(?)";
+				#echo $sql.'<br>';
+				if($this->mysql->insertData($sql,array($last_id_image)) <= 1){
+				}else{
+					return FALSE;// empresa no insertada
+				}
+			#Modifico el id de la empresa...
+			if($idEmpresaDELETE>0){
+				$last_id_empresa = $idEmpresaDELETE;
+			}else{
+				$last_id_empresa = $this->mysql->lastID();	
+			}
+	
+			$sql = "UPDATE imagenempresa SET idEmpresa = ? WHERE DestRandImageName = ?";
+				if($this->mysql->editData($sql,array($last_id_empresa,$DestRandImageName)) <= 1){
+				}else{
+					return FALSE;
+				}
+		}#TERMINO else de modificar y insertar
+		return TRUE;
+	}
 //OTROS DATOS PARA LOGIN Y REGISTRO
 	public function getBrowser(){
 		$u_agent = $_SERVER['HTTP_USER_AGENT']; 
@@ -394,7 +493,6 @@ class consultas{
 		'pattern' => $pattern
 		);
 	}
-
 	public function getOs(){
 	$useragent= strtolower($_SERVER['HTTP_USER_AGENT']);
 	

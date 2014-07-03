@@ -38,7 +38,7 @@ $(document).keypress(function(e) {
           <div class="row">
             <section>
               <header>
-              
+              <!--<div class="toolbar" style="text-align:right; text-decoration:overline"><b>EMPRESA</b> <a href="#!" onclick="empresaOpta(); return 0;"><img src="./images/bowler_hat/bowler_hat-48.png" width="32" height="32"/></a></div>-->
                     <header class="major">
                     	<h2>Datos basicos</h2>
                     </header>
@@ -70,7 +70,7 @@ $(document).keypress(function(e) {
                   <h3>Grupo de usuario: <?php if($grupo == 0){echo 'Usuario basico';}else if($grupo == 10){echo 'Usuario empresa';}else if($grupo == 99){echo 'Administrador';}?></h3>
                   </span>
                   <span class="byline">
-                  <h3>Contedo de logins: <?=$conteoLogings?></h3>
+                  <h3>Cuenta de logins: <?=$conteoLogings?></h3>
                   </span>
                   <span class="byline">
                   <h3>Fecha creacion de cuenta: <?=$fecha_creacion?></h3>

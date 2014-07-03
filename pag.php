@@ -25,6 +25,10 @@ if ($sec==''){
 		case 'activar':
 			include 'data/activar.php';
 		break;
+		#CURRICULUM
+		case 'newcurric':
+			include 'data/datosContactos.php';
+		break;
 		#MODIFICACIONES
 		case 'configuracion':
 			include 'data/configuracion.php';

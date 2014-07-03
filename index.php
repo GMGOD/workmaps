@@ -28,7 +28,6 @@ include './session.php';
 			@import "css/skel-noscript.css";
 			@import "css/style.css";
 			@import "css/style-desktop.css";
-			
 			@import "css/jquery.autocomplete.css";
 			@import "js/colorbox.css";
 		</style>
@@ -44,6 +43,7 @@ include './session.php';
 		<script src="js/ui.datepicker.js"></script>-->
         <script src="js/jquery.colorbox.js"></script>
         <script src="js/jquery.autocomplete.js"></script>
+        <script src="js/jquery.form.min.js"></script>
 		<!--[if lte IE 8]>
         <script src="js/html5shiv.js"></script>
         <link rel="stylesheet" href="css/ie8.css" />
