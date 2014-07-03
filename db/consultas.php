@@ -372,7 +372,6 @@ class consultas{
 		$id								=	$data['id'];
 		$DestRandImageNameDELETE		=	$data['DestRandImageName'];
 		$thumb_DestRandImageNameDELETE	=	$data['thumb_DestRandImageName'];
-		$idEmpresaDELETE				=	$data['idEmpresa'];
 		}
 		if($id != ""){
 			#Ya que la imagen ya esta ingresada, para no perder el id le hago update y elimino la antigua imagen
@@ -385,7 +384,7 @@ class consultas{
 					ImageExt=?,
 					ImageSize=? WHERE id = ?";
 				if($this->mysql->editData($sql,array($NewImageName,$DestRandImageName,$thumb_DestRandImageName,$DestinationDirectory,$ImageType,$ImageExt,$ImageSize,$id_txtUsuario)) <= 1){
-					#elimino la imagen anterior de la carpeta
+					#elimino la imagen anterior de la carpeta si el resultado es true
 					unlink($DestRandImageNameDELETE);
 					unlink($thumb_DestRandImageNameDELETE);
 				}else{
@@ -415,11 +414,7 @@ class consultas{
 					return FALSE;// empresa no insertada
 				}
 			#Modifico el id de la empresa...
-			if($idEmpresaDELETE>0){
-				$last_id_empresa = $idEmpresaDELETE;
-			}else{
-				$last_id_empresa = $this->mysql->lastID();	
-			}
+				$last_id_empresa = $this->mysql->lastID();
 	
 			$sql = "UPDATE imagenempresa SET idEmpresa = ? WHERE DestRandImageName = ?";
 				if($this->mysql->editData($sql,array($last_id_empresa,$DestRandImageName)) <= 1){
