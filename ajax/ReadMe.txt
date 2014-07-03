@@ -1,1 +1,0 @@
-@Website	http://www.sanwebe.com/2012/05/ajax-image-upload-and-resize-with-jquery-and-php
