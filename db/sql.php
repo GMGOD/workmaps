@@ -191,6 +191,7 @@ switch ($caso) {
 			$id_txtUsuario		=	trim($_REQUEST['id_txtUsuario']);
 			if($objDB->empresa_insertarImagen($id_txtUsuario,$NewImageName,$DestRandImageName,$thumb_DestRandImageName,$DestinationDirectory,$ImageType,$ImageExt,$ImageSize)){
 				echo 'db/uploads/empresa/'.$ThumbPrefix.$NewImageName;
+			#No cierro la conexion por que es un insertado asincrono...
 			}else{
 				die('ERROR insertando imagen a DB');	
 			}
