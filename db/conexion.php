@@ -32,71 +32,80 @@ $rowcount = $pdo->editData(sql, $params);
 				$this->user = $user; 
 				$this->pass = $pass; 
 				$this->database = $db;
-				$this->connectDB(); 
+				$this->connectDB();
+				$this->charset();
 		} 
 		
 		private function connectDB() { 
-		// Connect to the database 
-		try { 
-			$this->conn = new PDO('mysql:host=' . $this->host . ';dbname=' . $this->database, $this->user, $this->pass); 
-			$this->conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION); 
-		} 
-		catch(PDOException $e) { 
-			throw new Exception('DATABASE ERROR: ' . $e->getMessage()); 
-		} 
+			// Connect to the database 
+			try { 
+				$this->conn = new PDO('mysql:host=' . $this->host . ';dbname=' . $this->database, $this->user, $this->pass); 
+				$this->conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION); 
+			} 
+			catch(PDOException $e) { 
+				throw new Exception('DATABASE ERROR: ' . $e->getMessage()); 
+			} 
 		} 
 		
 		public static function getInstance($host, $user, $pass, $db) { 
-		// method for returning db 
-		
-		if(self::$instance == null) 
-		 { 
-		  self::$instance = new PDODB($host, $user, $pass, $db); 
-		 } 
-		 return self::$instance; 
+			// method for returning db 
+			
+			if(self::$instance == null) 
+			 { 
+			  self::$instance = new PDODB($host, $user, $pass, $db); 
+			 } 
+			 return self::$instance; 
 		} 
 
 		public function insertData($sql,$params) { 
-		try { 
-		  $this->stmt = $this->conn->prepare($sql); 
-		  return $this->stmt->execute($params); 
-		} 
-		catch(PDOException $e) { 
-		  throw new Exception('DATABASE ERROR: ' . $e->getMessage()); 
-		} 
+			try { 
+			  $this->stmt = $this->conn->prepare($sql); 
+			  return $this->stmt->execute($params); 
+			} 
+			catch(PDOException $e) { 
+			  throw new Exception('DATABASE ERROR: ' . $e->getMessage()); 
+			} 
 		}
 
 		public function getData($sql,$params = NULL) { 
-		try { 
-		  $this->stmt = $this->conn->prepare($sql); 
-		  $this->stmt->execute($params);
-		  return $this->stmt->fetchAll(); 
-		} 
-		catch(PDOException $e) { 
-		  throw new Exception('DATABASE ERROR: ' . $e->getMessage()); 
-		} 
+			try { 
+			  $this->stmt = $this->conn->prepare($sql); 
+			  $this->stmt->execute($params);
+			  return $this->stmt->fetchAll(); 
+			} 
+			catch(PDOException $e) { 
+			  throw new Exception('DATABASE ERROR: ' . $e->getMessage()); 
+			} 
 		} 
 		
 		public function editData($sql,$params) { 
-		try { 
-		  $this->stmt = $this->conn->prepare($sql); 
-		  $this->stmt->execute($params); 
-		  return $this->stmt->rowCount(); 
-		} 
-		catch(PDOException $e) { 
-		  throw new Exception('DATABASE ERROR: ' . $e->getMessage()); 
-		} 
+			try { 
+			  $this->stmt = $this->conn->prepare($sql); 
+			  $this->stmt->execute($params); 
+			  return $this->stmt->rowCount(); 
+			} 
+			catch(PDOException $e) { 
+			  throw new Exception('DATABASE ERROR: ' . $e->getMessage()); 
+			} 
 		} 
 		
 		public function lastID() { 
-		try { 
-		  return $this->conn->lastInsertId(); 
+			try { 
+			  return $this->conn->lastInsertId(); 
+			} 
+			catch(PDOException $e) { 
+			  throw new Exception('DATABASE ERROR: ' . $e->getMessage()); 
+			} 
 		} 
-		catch(PDOException $e) { 
-		  throw new Exception('DATABASE ERROR: ' . $e->getMessage()); 
-		} 
-		} 
-		
+		public function charset() { 
+			try { 
+			  $this->stmt = $this->conn->prepare("SET NAMES 'utf8'"); 
+			  return $this->stmt->execute(); 
+			} 
+			catch(PDOException $e) { 
+			  throw new Exception('DATABASE ERROR: ' . $e->getMessage()); 
+			} 
+		}
 		public function __destruct() { 
 			$this->conn = null;
 		}

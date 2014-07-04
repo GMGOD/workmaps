@@ -1,6 +1,14 @@
 <?php
 include '../db/consultas.php';
 include '../session.php';
+$objDB = new consultas;
+$lista = $objDB->empresa_getImagen($_SESSION['www_id']);
+$id = 0;#vacio para inicializar
+foreach ($lista as $data){
+		$id								=	$data['id'];
+		$NewImageName					=	$data['NewImageName'];
+}
+$objDB->destruct();
 ?>
 <script type="text/javascript" >
 $(document).keypress(function(e) {
@@ -8,9 +16,16 @@ $(document).keypress(function(e) {
     empresa();
   }
 });
-$(document).ready(function() { 
+$(document).ready(function() {
+	
+	if(<?=$id?> != 0){
+		var tmpImg = 'db/uploads/empresa/thumb_<?=$NewImageName?>';
+		tamImg('+<?=$NewImageName?>+');
+		$('#imagen_subir').css('background-image','url('+tmpImg+')');
+	}
+	
 	var options = { 
-			//target:   '#output',   // target element(s) to be updated with server response 
+			//target:   '#respError',   // target element(s) to be updated with server response 
 			beforeSubmit:  beforeSubmit,  // pre-submit callback 
 			success:       afterSuccess,  // post-submit callback 
 			resetForm: true        // reset the form after successful submit 
@@ -22,11 +37,7 @@ $(document).ready(function() {
 			return false;
 		}); 
 }); 
-
-function afterSuccess(a)
-{
-	$('#submit-btn').show(); //hide submit button
-	$('#fadingBarsG').hide(); //hide submit button
+function tamImg(a){
 	var tmpImg = new Image();
 	tmpImg.src = a;
 	$(tmpImg).on('load',function(){
@@ -36,6 +47,12 @@ function afterSuccess(a)
 	  $('form#MyUploadForm').css('height',orgHeight);
 	  $('form#MyUploadForm').css('width',orgWidth);
 	});
+}
+function afterSuccess(a)
+{
+	$('#submit-btn').show(); //hide submit button
+	$('#fadingBarsG').hide(); //hide submit button
+	tamImg(a);
 	//console.log('alto: '+a.naturalHeight);
 	//console.log('Amcho: '+a.clientWidth);
 	$('#imagen_subir').css('background-image','url('+a+')');
@@ -49,7 +66,8 @@ function beforeSubmit(){
 		
 		if( !$('#imageInput').val()) //check empty input filed
 		{
-			$("#output").html("Are you kidding me?");
+			$("#respError").css('display','inline');
+			$("#respError").html("Are you kidding me?");
 			return false
 		}
 		
@@ -63,25 +81,29 @@ function beforeSubmit(){
             case 'image/png': case 'image/gif': case 'image/jpeg': case 'image/pjpeg':
                 break;
             default:
-                $("#output").html("<b>"+ftype+"</b> Unsupported file type!");
+				$("#respError").css('display','inline');
+                $("#respError").html("<b>"+ftype+"</b> Unsupported file type!");
 				return false
         }
 		
 		//Allowed file size is less than 1 MB (1048576)
 		if(fsize>1048576) 
 		{
-			$("#output").html("<b>"+bytesToSize(fsize) +"</b> Too big Image file! <br />Please reduce the size of your photo using an image editor.");
+			$("#respError").css('display','inline');
+			$("#respError").html("<b>"+bytesToSize(fsize) +"</b> Too big Image file! <br />Please reduce the size of your photo using an image editor.");
 			return false
 		}
 				
 		$('#submit-btn').hide(); //hide submit button
 		$('#fadingBarsG').show(); //hide submit button
-		$("#output").html("");  
+		$("#respError").hide();
+		$("#respError").html("");  
 	}
 	else
 	{
-		//Output error to older unsupported browsers that doesn't support HTML5 File API
-		$("#output").html("Please upgrade your browser, because your current browser lacks some new features we need!");
+		//respError error to older unsupported browsers that doesn't support HTML5 File API
+		$("#respError").css('display','inline');
+		$("#respError").html("Please upgrade your browser, because your current browser lacks some new features we need!");
 		return false;
 	}
 }
@@ -96,6 +118,7 @@ function bytesToSize(bytes) {
 
 </script>
 <!-- Main Wrapper -->
+
 <div class="row">
   <div class="12u skel-cell-mainContent"> 
     
@@ -115,7 +138,7 @@ function bytesToSize(bytes) {
                 <div>Al agregar una nueva empresa esta quedara en estado de <b>ESPERA</b>, este se demorara entre 24-72 horas de ser aceptado.</div>
                 <div id="upload-wrapper">
                   <form action="db/sql.php?caso=22" method="post" enctype="multipart/form-data" id="MyUploadForm">
-                  <input type="hidden" name="id_txtUsuario" id="id_txtUsuario" value="<?=$_SESSION['www_id']?>" />
+                    <input type="hidden" name="id_txtUsuario" id="id_txtUsuario" value="<?=$_SESSION['www_id']?>" />
                     <label class="filebutton">
                     <div id="imagen_subir" class="swap">
                       <div id="fadingBarsG">
@@ -136,7 +159,6 @@ function bytesToSize(bytes) {
                     <!--            <input name="ImageFile" id="imageInput" type="file" />
             <input type="submit"  id="submit-btn" value="Upload" />-->
                   </form>
-                  <div id="output"></div>
                 </div>
                 <form name="frm" method="post">
                   <input type="hidden" name="id_txtUsuario" id="id_txtUsuario" value="<?=$_SESSION['www_id']?>" />

@@ -1,6 +1,7 @@
 <script type="text/javascript" >
 $(document).ready(function(){
 	if(<?php echo $_GET['val']; ?> == 1){
+		$('#respError').css('display','inline');
 		$("#respError").html('<img src="./images/error.png" /> El usuario o la contrase&ntilde;a no coinciden.');
 	}else if(<?php echo $_GET['val']; ?> == 2){
 		$("#respError").html('<img src="./images/ok.png" /> Su cuenta ya ha sido activada, puede logear.');
@@ -35,6 +36,7 @@ function validar(){
 
 
 	if (ok1 || ok2 ) {
+		$('#respError').css('display','inline');
 		$("#respError").html('<div> <h2> <img src="./images/error.png" /> Debe solucionar estos problemas antes de seguir</h2> <span class="byline">'+MsgError+"</span></div>");
 	} else 
 	{

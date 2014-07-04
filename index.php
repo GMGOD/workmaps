@@ -1,6 +1,6 @@
 <?php
 #echo phpinfo();
-header('Content-Type: text/html; charset=ISO-8859-1');
+header('Content-Type: text/html; charset=utf-8');
 include './session.php';
 /*include 'db/funciones.php';*/
 
@@ -22,6 +22,7 @@ include './session.php';
 		<title>Mapworks - Proyecto informatico 2</title>
 		<meta name="description" content="" />
 		<meta name="keywords" content="" />
+        <meta http-equiv="Content-type" content="text/html; charset=utf-8" />
 		<link href="http://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,700,900,300italic" rel="stylesheet" />
 		<noscript>
 		<style type="text/css" title="mapWorks">

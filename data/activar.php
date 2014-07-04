@@ -1,11 +1,11 @@
 <script type="text/javascript" >
 $(document).ready(function(){
 	if(<?php echo $_GET['val']; ?> == 1){
-				$("#respActivar").html('<img src="./images/error.png" /> ');
-				$("#respActivarTexto").html('El codigo no es valido.');
+				$('#respError').css('display','inline');
+				$("#respError").html('<img src="./images/error.png" /> El codigo no es valido.');
 	}else if(<?php echo $_GET['val']; ?> == 3){
-				$("#respActivar").html('<img src="./images/error.png" /> ');
-				$("#respActivarTexto").html('Ocurrio un problema activando su cuenta, porfavor vuelvalo a intentar.');	
+				$('#respError').css('display','inline');
+				$("#respError").html('<img src="./images/error.png" /> Ocurrio un problema, por favor vuelvalo a intentar.');
 	}
 $(document).keypress(function(e) {
   if(e.which == 13) {
@@ -27,6 +27,7 @@ function validar(){
 	if (ok1) MsgError = MsgError + "<span style='color:#F00'>*</span> Debe ingresar el codigo de activacion \n";
 
 	if (ok1) {
+	$('#respError').css('display','inline');
 	$("#respError").html('<div> <h2> <img src="./images/error.png" /> Debe solucionar estos problemas antes de seguir</h2> <span class="byline">'+MsgError+"</span></div>");
 	}else{
 		var frm = self.document.frm;
@@ -53,8 +54,7 @@ function validar(){
 										<div class="row">
 											<div class="6u">
 												<section>
-                                                <div id="respError"></div>
-                                                <h2><div id="respActivar" style="float:left"></div> <div id="respActivarTexto" ></div></h2><br/>
+                                                <div id="respError"></div><br />
                                                 <h1>Para poder empezar a usar tu cuenta primero debes activarla con el codigo que fue enviado a tu correo, o simplemente precionando en el link del correo.</h1>
 													<header>
                                                     

@@ -1,6 +1,6 @@
 <script type="text/javascript" >
 $(document).ready(function(){
-$("#include").load("./data/empresaOpta.php");
+$("#include").load("./data/datos.php");
 $("#menuizquierda1").addClass("conf_current_page_item");
 $("#menuizquierda2").removeClass();
 $("#menuizquierda3").removeClass();
@@ -12,13 +12,7 @@ function checkPass(pass){var x=pass;if (x.length<=4){return false;}else{return t
 function checkEmail(email){	var x=email;var arroa=x.indexOf('@');var punto=x.lastIndexOf('.');if (arroa<1 || punto<arroa+2 || punto+2>=x.length){return false;}else{return true;}
 }
 
-function empresaOpta(){
-    $("#include").load("./data/empresaOpta.php");
-	$("#menuizquierda1").addClass("conf_current_page_item");
-	$("#menuizquierda2").removeClass();
-	$("#menuizquierda3").removeClass();
-	$("#menuizquierda4").removeClass();
-}
+
 function empresaSucces(){
     $("#include").load("./data/empresaListo.php");
 	$("#menuizquierda1").addClass("conf_current_page_item");
@@ -32,6 +26,7 @@ function vistaDatos(){
 	$("#menuizquierda2").removeClass();
 	$("#menuizquierda3").removeClass();
 	$("#menuizquierda4").removeClass();
+	$("#menuizquierda5").removeClass();
 }
 function vistaSeguridad(){
     $("#include").load("./data/404.php");
@@ -39,6 +34,7 @@ function vistaSeguridad(){
 	$("#menuizquierda2").addClass("conf_current_page_item");
 	$("#menuizquierda3").removeClass();
 	$("#menuizquierda4").removeClass();
+	$("#menuizquierda5").removeClass();
 }
 function vistaEmail(){
     $("#include").load("./data/mail.php");
@@ -46,6 +42,7 @@ function vistaEmail(){
 	$("#menuizquierda2").removeClass();
 	$("#menuizquierda3").addClass("conf_current_page_item");
 	$("#menuizquierda4").removeClass();
+	$("#menuizquierda5").removeClass();
 }
 function vistaPass(){
     $("#include").load("./data/password.php");
@@ -53,6 +50,15 @@ function vistaPass(){
 	$("#menuizquierda2").removeClass();
 	$("#menuizquierda3").removeClass();
 	$("#menuizquierda4").addClass("conf_current_page_item");
+	$("#menuizquierda5").removeClass();
+}
+function empresaOpta(){
+    $("#include").load("./data/empresaOpta.php");
+	$("#menuizquierda1").removeClass();
+	$("#menuizquierda2").removeClass();
+	$("#menuizquierda3").removeClass();
+	$("#menuizquierda4").removeClass();
+	$("#menuizquierda5").addClass("conf_current_page_item");
 }
 
 function password(){
@@ -128,9 +134,10 @@ function password(){
 	if (ok5) MsgError = MsgError + "<span style='color:#F00'>*</span> Las password no coinciden <br>";
 	if (ok6) MsgError = MsgError + "<span style='color:#F00'>*</span> La password antigua no coincide <br>";
 	if (ok1 || ok2 || ok3 || ok4 || ok5 || ok6) {
-	$("#respError").html('<div> <h2> <img src="./images/error.png" /> Debe solucionar estos problemas antes de seguir</h2> <span class="byline">'+MsgError+"</span></div>");
+	$('#respError').css('display','inline');
+	$("#respError").html('<h2> <img src="./images/error.png" /> Debe solucionar estos problemas antes de seguir</h2> <span class="byline">'+MsgError+"</span>");
 	}else{
-			$("#respError").html('');
+			$("#respError").hide();
 			$.ajax({//Guardar
 						type: "POST",
 						url: "./db/sql.php?caso=21",
@@ -139,11 +146,11 @@ function password(){
 						async: false,
 						success: function(respuesta){
 							if(respuesta == 1){
-								$("#respModificar").html('<img src="./images/ok.png" /> ');
-								$("#respModificarTexto").html('La password se modifico correctamente.');
+								$('#respError').css('display','inline');
+								$("#respError").html('<img src="./images/ok.png" /> La password se modifico correctamente.');
 							}else{
-								$("#respModificar").html('<img src="./images/error.png" /> ');
-								$("#respModificarTexto").html('Ocurrio un error modificando su password')
+								$('#respError').css('display','inline');
+								$("#respError").html('<img src="./images/error.png" /> Ocurrio un error modificando su password');
 							}
 						}
 					});
@@ -252,9 +259,10 @@ function mail(){
 	if (ok8) MsgError = MsgError + "<span style='color:#F00'>*</span> La contrase&ntilde;a ingresada no coincide <br>";
 
 	if (ok1 || ok2 || ok3 || ok4 || ok5 || ok6 || ok7 || ok8) {
-	$("#respError").html('<div> <h2> <img src="./images/error.png" /> Debe solucionar estos problemas antes de seguir</h2> <span class="byline">'+MsgError+"</span></div>");
+	$("#respError").css('display','inline');
+	$("#respError").html('<h2> <img src="./images/error.png" /> Debe solucionar estos problemas antes de seguir</h2> <span class="byline">'+MsgError+"</span>");
 	}else{
-			$("#respError").html('');
+			$("#respError").hide();
 			$.ajax({//Guardar
 						type: "POST",
 						url: "./db/sql.php?caso=20",
@@ -263,11 +271,11 @@ function mail(){
 						async: false,
 						success: function(respuesta){
 							if(respuesta == 1){
-								$("#respModificar").html('<img src="./images/ok.png" /> ');
-								$("#respModificarTexto").html('El e-mail se modifico correctamente.');
+								$('#respError').css('display','inline');
+								$("#respError").html('<img src="./images/ok.png" /> El e-mail se modifico correctamente.');
 							}else{
-								$("#respModificar").html('<img src="./images/error.png" /> ');
-								$("#respModificarTexto").html('Ocurrio un error modificando su email')
+								$('#respError').css('display','inline');
+								$("#respError").html('<img src="./images/error.png" /> Ocurrio un error modificando su email');
 							}
 						}
 					});
@@ -356,7 +364,7 @@ function empresa(){
                           <li id="menuizquierda2"><a href="#!" onClick="vistaSeguridad(); return 0;">Seguridad</a></li>
                           <li id="menuizquierda3"><a href="#!" onClick="vistaEmail(); return 0;">Cambiar E-mail</a></li>
                           <li id="menuizquierda4"><a href="#!" onClick="vistaPass(); return 0;">Cambiar Password</a></li>
-                          <li id="menuizquierda1" ><a href="#!" onClick="empresaOpta(); return 0;">Optar a empresa</a></li>
+                          <li id="menuizquierda5" ><a href="#!" onClick="empresaOpta(); return 0;">Optar a empresa</a></li>
                         </ul>
                       </nav>
                     </div>

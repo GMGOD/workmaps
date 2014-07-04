@@ -12,7 +12,7 @@ class consultas{
 		$db		=	"workmaps";
 			$this->mysql = new MySQLPDO($host,$user,$pass,$db);
 	}
-	
+	#FUNCIONES BASICAS
 	public function iniciarSesion($usuario,$password){
 		$sql = "SELECT
 		m.id,m.group_id,m.user_nick,m.user_pass,m.email,m.activar,m.state,m.unban_time,ui.nombre,ui.apellido,ac.listo,m.logincount
@@ -74,7 +74,6 @@ class consultas{
 		return "../index.php?sec=error_session"; #ERROR (problemas con la session)
 		/* <script>alert("Sesion: '.$_SESSION['www_id'].'");</script> */
 	}
-	
 	public function logout(){
 			if(session_destroy()){
 				$_SESSION['www_id']			= 0;
@@ -89,7 +88,6 @@ class consultas{
 				return "../index.php?sec=error_session";
 			}
 	}
-	
 	public function registro($txtUsuario,$txtPassword,$txtMail,$txtNombre,$txtApellido,$cmbSexo,$txtRut,$salt){
 		$sql = "INSERT INTO miembros";
 		$sql .= "(user_nick,user_pass,email,activar,state,fecha_creacion)";
@@ -131,7 +129,6 @@ class consultas{
 			#DEBE REDIRECCIONAR SI ES LA PRIMERA VEZ QUE ENTRA hacia una web de creacion de curriculum
 		}*/
 	}
-	
 	public function activarMail($txtActivar){
 		if($txtActivar != "" || $txtActivar != 0){
 				$sql="SELECT * FROM acti_codigos WHERE cod = ?";
@@ -160,7 +157,6 @@ class consultas{
 			return "../index.php?sec=activar&val=1";
 		}
 	}
-	
 	public function userExiste($usuario){
 		if($usuario != "" || $usuario != 0){
 			$sql="SELECT * FROM miembros WHERE user_nick = ?";
@@ -173,7 +169,6 @@ class consultas{
 			}else{return 2;}
 		}
 	}
-	
 	public function mailExiste($mail){
 		if($mail != "" || $mail != 0){
 			$sql="SELECT * FROM miembros WHERE email = ?";
@@ -186,7 +181,6 @@ class consultas{
 			}else{return 2;}
 		}
 	}
-	
 	public function rutExiste($rut){
 		if($rut != "" || $rut != 0){
 			$sql="SELECT * FROM user_info WHERE rut = ?";
@@ -211,7 +205,6 @@ class consultas{
 			}else{return 2;}
 		}
 	}
-	
 	public function passCoincide($txtPassword,$id){
 		if($id != "" || $id != 0){
 			$sql="SELECT * FROM miembros WHERE user_pass = ? AND id = ?";
@@ -224,7 +217,6 @@ class consultas{
 			}else{return 2;}
 		}
 	}
-	
 	public function modMail($id_txtUsuario,$txtEmailN){
 		$sql = "UPDATE miembros SET email = ? WHERE id = ?";
 		if($this->mysql->editData($sql,array($txtEmailN,$id_txtUsuario)) <= 1){
@@ -235,7 +227,6 @@ class consultas{
 			return 2;
 		}
 	}
-	
 	public function modPass($id_txtUsuario,$txtPasswordNew){
 		$sql = "UPDATE miembros SET user_pass = ? WHERE id = ?";
 		if($this->mysql->editData($sql,array($txtPasswordNew,$id_txtUsuario)) <= 1){
@@ -246,40 +237,6 @@ class consultas{
 			return 2;
 		}
 	}
-	
-	public function registrarEmpresa($id_txtUsuario,$imagen,$path,
-									 $rutEmpresa,$nombreEmpresa,$razonSocial,
-									 $telefono,$rubro = NULL,$correo = NULL){
-		
-		$sql = "INSERT INTO imagenempresa";
-		$sql .= "(idUsuario,idEmpresa,nombre,path)";
-		$sql .= "VALUES";
-		$sql .= "(?,?,?,?)";
-		#echo $sql.'<br>';
-		if($this->mysql->insertData($sql,array($id_txtUsuario,0,$imagen,$path)) <= 1){
-		}else{
-			return "../index.php?sec=configuracion&empresa=3";// imagen error
-		}
-		$last_id_image = $this->mysql->lastID();
-		$sql = "INSERT INTO empresa";
-		$sql .= "(rut,nombre,razonSocial,telefono,rubro,correo,imagen)";
-		$sql .= "VALUES";
-		$sql .= "(?,?,?,?,?,?,?)";
-		#echo $sql.'<br>';
-		if($this->mysql->insertData($sql,array($rutEmpresa,$nombreEmpresa,$telefono,$rubro,$correo,$last_id_image)) <= 1){
-		}else{
-			return "../index.php?sec=configuracion&empresa=4";// imagen insertada
-		}
-		$last_id_empresa = $this->mysql->lastID();
-		$sql = "UPDATE imagenempresa SET idEmpresa=? WHERE id = ?";
-		if($this->mysql->editData($sql,array($last_id_empresa,$last_id_image)) <= 1){
-			return "../index.php?sec=configuracion&empresa=0";// empresa insertada
-		}else{
-			return "../index.php?sec=configuracion&empresa=5";// vincular error
-		}
-		return 0;
-	}
-	
 	public function banear($id){
 		$sql = "UPDATE miembros SET state=2 WHERE id = ?";
 		if($this->mysql->editData($sql,array($id)) <= 1){
@@ -289,7 +246,6 @@ class consultas{
 		
 		return FALSE;
 	}
-	
 	public function desBanear($id){
 		$sql = "UPDATE miembros SET state=1 WHERE id = ?";
 		if($this->mysql->editData($sql,array($id)) <= 1){
@@ -298,7 +254,6 @@ class consultas{
 		
 		return FALSE;
 	}
-	
 	public function volverConfirmar($nombre,$id){
 		$sql="SELECT * FROM acti_codigos WHERE userid = ? AND listo = 2";
 		foreach ($this->mysql->getData($sql,array($id)) as $data){
@@ -363,6 +318,90 @@ class consultas{
 		
 		return $resp;
 	}
+	public function registrarEmpresa($id_txtUsuario,$imagen,$path,
+									 $rutEmpresa,$nombreEmpresa,$razonSocial,
+									 $telefono,$rubro = NULL,$correo = NULL){
+		
+		$sql = "INSERT INTO imagenempresa";
+		$sql .= "(idUsuario,idEmpresa,nombre,path)";
+		$sql .= "VALUES";
+		$sql .= "(?,?,?,?)";
+		#echo $sql.'<br>';
+		if($this->mysql->insertData($sql,array($id_txtUsuario,0,$imagen,$path)) <= 1){
+		}else{
+			return "../index.php?sec=configuracion&empresa=3";// imagen error
+		}
+		$last_id_image = $this->mysql->lastID();
+		$sql = "INSERT INTO empresa";
+		$sql .= "(rut,nombre,razonSocial,telefono,rubro,correo,imagen)";
+		$sql .= "VALUES";
+		$sql .= "(?,?,?,?,?,?,?)";
+		#echo $sql.'<br>';
+		if($this->mysql->insertData($sql,array($rutEmpresa,$nombreEmpresa,$telefono,$rubro,$correo,$last_id_image)) <= 1){
+		}else{
+			return "../index.php?sec=configuracion&empresa=4";// imagen insertada
+		}
+		$last_id_empresa = $this->mysql->lastID();
+		$sql = "UPDATE imagenempresa SET idEmpresa=? WHERE id = ?";
+		if($this->mysql->editData($sql,array($last_id_empresa,$last_id_image)) <= 1){
+			return "../index.php?sec=configuracion&empresa=0";// empresa insertada
+		}else{
+			return "../index.php?sec=configuracion&empresa=5";// vincular error
+		}
+		return 0;
+	}
+	
+	#IMAGENES
+	public function insertarImagen($id_txtUsuario,$NewImageName,$DestRandImageName,$thumb_DestRandImageName,$DestinationDirectory,$ImageType,$ImageExt,$ImageSize){
+		
+		#VALIDO si la imagen ya existe...
+		$sql = "SELECT * FROM imagenusuario WHERE idUsuario = ?";
+		$resp = $this->mysql->getData($sql,array($id_txtUsuario));
+		foreach ($resp as $data){
+		$id								=	$data['id'];
+		$DestRandImageNameDELETE		=	$data['DestRandImageName'];
+		$thumb_DestRandImageNameDELETE	=	$data['thumb_DestRandImageName'];
+		}
+		if($id != ""){
+			#Ya que la imagen ya esta ingresada, para no perder el id le hago update y elimino la antigua imagen
+			$sql = "UPDATE imagenusuario SET
+					NewImageName=?,
+					DestRandImageName=?,
+					thumb_DestRandImageName=?,
+					DestinationDirectory=?,
+					ImageType=?,
+					ImageExt=?,
+					ImageSize=? WHERE id = ?";
+				if($this->mysql->editData($sql,array($NewImageName,$DestRandImageName,$thumb_DestRandImageName,$DestinationDirectory,$ImageType,$ImageExt,$ImageSize,$id)) <= 1){
+					#elimino la imagen anterior de la carpeta si el resultado es true
+					if(file_exists($DestRandImageNameDELETE) && file_exists($thumb_DestRandImageNameDELETE)){
+						unlink($DestRandImageNameDELETE);
+						unlink($thumb_DestRandImageNameDELETE);
+					}else{
+						$sql = "DELETE FROM imagenusuario WHERE id = ?";
+							if($this->mysql->editData($sql,array($id) <= 1)){
+							}else{
+								return TRUE;
+							}	
+					}
+				}else{
+					return FALSE;
+				}
+		/*=============*/
+		}else{
+			#Inserto imagen en la DB si esta no existia antes
+			$sql = "INSERT INTO imagenusuario";
+				$sql .= "(idUsuario,NewImageName,DestRandImageName,thumb_DestRandImageName,DestinationDirectory,ImageType,ImageExt,ImageSize)";
+				$sql .= "VALUES";
+				$sql .= "(?,?,?,?,?,?,?,?)";
+				#echo $sql.'<br>';
+				if($this->mysql->insertData($sql,array($id_txtUsuario,$NewImageName,$DestRandImageName,$thumb_DestRandImageName,$DestinationDirectory,$ImageType,$ImageExt,$ImageSize)) <= 1){
+				}else{
+					return FALSE;// imagen no insertada
+				}
+		}#TERMINO else de modificar y insertar
+		return TRUE;
+	}
 	public function empresa_insertarImagen($id_txtUsuario,$NewImageName,$DestRandImageName,$thumb_DestRandImageName,$DestinationDirectory,$ImageType,$ImageExt,$ImageSize){
 		
 		#VALIDO si la imagen ya existe...
@@ -383,10 +422,18 @@ class consultas{
 					ImageType=?,
 					ImageExt=?,
 					ImageSize=? WHERE id = ?";
-				if($this->mysql->editData($sql,array($NewImageName,$DestRandImageName,$thumb_DestRandImageName,$DestinationDirectory,$ImageType,$ImageExt,$ImageSize,$id_txtUsuario)) <= 1){
+				if($this->mysql->editData($sql,array($NewImageName,$DestRandImageName,$thumb_DestRandImageName,$DestinationDirectory,$ImageType,$ImageExt,$ImageSize,$id)) <= 1){
 					#elimino la imagen anterior de la carpeta si el resultado es true
-					unlink($DestRandImageNameDELETE);
-					unlink($thumb_DestRandImageNameDELETE);
+					if(file_exists($DestRandImageNameDELETE) && file_exists($thumb_DestRandImageNameDELETE)){
+						unlink($DestRandImageNameDELETE);
+						unlink($thumb_DestRandImageNameDELETE);
+					}else{
+						$sql = "DELETE FROM imagenempresa WHERE id = ?";
+							if($this->mysql->editData($sql,array($id) <= 1)){
+							}else{
+								return TRUE;
+							}	
+					}
 				}else{
 					return FALSE;
 				}
@@ -424,6 +471,19 @@ class consultas{
 		}#TERMINO else de modificar y insertar
 		return TRUE;
 	}
+	public function getImagen($id){
+		$sql = "SELECT id,NewImageName FROM imagenusuario WHERE idUsuario = ?";
+		$resp = $this->mysql->getData($sql,array($id));
+		
+		return $resp;
+	}
+	public function empresa_getImagen($id){
+		$sql = "SELECT id,NewImageName FROM imagenempresa WHERE idUsuario = ?";
+		$resp = $this->mysql->getData($sql,array($id));
+		
+		return $resp;
+	}
+	
 //OTROS DATOS PARA LOGIN Y REGISTRO
 	public function getBrowser(){
 		$u_agent = $_SERVER['HTTP_USER_AGENT']; 

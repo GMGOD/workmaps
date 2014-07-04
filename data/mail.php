@@ -28,8 +28,7 @@ $(document).keypress(function(e) {
           <div class="row">
             <section>
               <h2>
-                <div id="respModificar" style="float:left"></div>
-                <div id="respModificarTexto" ></div>
+                <div id="respError" ></div>
               </h2>
               <br/>
               <header>
