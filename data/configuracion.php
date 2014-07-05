@@ -134,8 +134,8 @@ function password(){
 	if (ok5) MsgError = MsgError + "<span style='color:#F00'>*</span> Las password no coinciden <br>";
 	if (ok6) MsgError = MsgError + "<span style='color:#F00'>*</span> La password antigua no coincide <br>";
 	if (ok1 || ok2 || ok3 || ok4 || ok5 || ok6) {
-	$('#respError').css('display','inline');
-	$("#respError").html('<h2> <img src="./images/error.png" /> Debe solucionar estos problemas antes de seguir</h2> <span class="byline">'+MsgError+"</span>");
+	$("#respError").css('display','inline-block');
+	$("#respError").html('<h2> <span class="byline"><img src="./images/error.png" /> Debe solucionar estos problemas antes de seguir</spawn></h2> <span class="byline">'+MsgError+"</span>");
 	}else{
 			$("#respError").hide();
 			$.ajax({//Guardar
@@ -146,10 +146,10 @@ function password(){
 						async: false,
 						success: function(respuesta){
 							if(respuesta == 1){
-								$('#respError').css('display','inline');
+								$("#respError").css('display','inline-block');
 								$("#respError").html('<img src="./images/ok.png" /> La password se modifico correctamente.');
 							}else{
-								$('#respError').css('display','inline');
+								$("#respError").css('display','inline-block');
 								$("#respError").html('<img src="./images/error.png" /> Ocurrio un error modificando su password');
 							}
 						}
@@ -259,8 +259,8 @@ function mail(){
 	if (ok8) MsgError = MsgError + "<span style='color:#F00'>*</span> La contrase&ntilde;a ingresada no coincide <br>";
 
 	if (ok1 || ok2 || ok3 || ok4 || ok5 || ok6 || ok7 || ok8) {
-	$("#respError").css('display','inline');
-	$("#respError").html('<h2> <img src="./images/error.png" /> Debe solucionar estos problemas antes de seguir</h2> <span class="byline">'+MsgError+"</span>");
+	$("#respError").css('display','inline-block');
+	$("#respError").html('<h2> <span class="byline"><img src="./images/error.png" /> Debe solucionar estos problemas antes de seguir</spawn></h2> <span class="byline">'+MsgError+"</span>");
 	}else{
 			$("#respError").hide();
 			$.ajax({//Guardar
@@ -271,10 +271,10 @@ function mail(){
 						async: false,
 						success: function(respuesta){
 							if(respuesta == 1){
-								$('#respError').css('display','inline');
+								$("#respError").css('display','inline-block');
 								$("#respError").html('<img src="./images/ok.png" /> El e-mail se modifico correctamente.');
 							}else{
-								$('#respError').css('display','inline');
+								$("#respError").css('display','inline-block');
 								$("#respError").html('<img src="./images/error.png" /> Ocurrio un error modificando su email');
 							}
 						}
@@ -329,7 +329,8 @@ function empresa(){
 	if (ok5) MsgError = MsgError + "<span style='color:#F00'>*</span> Debe ingresar el telefono de la empresa <br>";
 
 	if (ok1 || ok2 || ok3 || ok4 || ok5) {
-	$("#respError").html('<div> <h2> <img src="./images/error.png" /> Debe solucionar estos problemas antes de seguir</h2> <span class="byline">'+MsgError+"</span></div>");
+		$("#respError").css('display','inline-block');
+		$("#respError").html('<div> <h2> <span class="byline"><img src="./images/error.png" /> Debe solucionar estos problemas antes de seguir</spawn></h2> <span class="byline">'+MsgError+"</span></div>");
 	}else{
 		empresaSucces();
 			/*$("#respError").html('');

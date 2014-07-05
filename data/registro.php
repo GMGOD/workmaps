@@ -1,7 +1,7 @@
 <script type="text/javascript" >
 $(document).ready(function(){
 	if(<?php echo $_GET['val']; ?> == 1){
-		$('#respError').css('display','inline');
+		$('#respError').css('display','inline-block');
 		$("#respError").html('<img src="./images/error.png" /> El mail no ha podido ser enviado, espere a que un administrador active su cuenta.');
 	}
 $(document).keypress(function(e) {
@@ -177,8 +177,8 @@ function validar(){
 
 
 	if (ok1 || ok2 || ok3 || ok4 || ok5 || ok6 || ok7 || ok8 || ok9 || ok10 || ok11 || ok12 || ok13 || ok14 || ok15 || ok16) {
-	$("#respError").css('display','inline');
-	$("#respError").html('<div> <h2> <img src="./images/error.png" /> Debe solucionar estos problemas antes de seguir</h2> <span class="byline">'+MsgError+"</span></div>");
+	$("#respError").css('display','inline-block');
+	$("#respError").html('<div> <h2> <span class="byline"><img src="./images/error.png" /> Debe solucionar estos problemas antes de seguir</span></h2> <span class="byline">'+MsgError+"</span></div>");
 	} else 
 	{
 			var frm = self.document.frm;
@@ -249,7 +249,8 @@ function validar(){
                                                             <option value="2">Mujer</option>
                                                         </select>
                                                         </span><br />
-                                                        <input type="button" id="btnEntrar" value="Ingresar" onclick="validar(); return false;">
+                                                        <span class="byline">
+                                                        <input type="button" id="btnEntrar" value="Ingresar" onclick="validar(); return false;"></span>
  													</form>
 													</header>
 												</section>

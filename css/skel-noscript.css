@@ -74,11 +74,11 @@
 		}
 
 		.row + .row > * {
-			padding-top: 40px;
+			padding-top: 1%;
 		}
 
 		.row {
-			margin-left: -40px;
+			margin-left: 1%;
 		}
 
 	/* Rows */

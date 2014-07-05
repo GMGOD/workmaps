@@ -167,34 +167,35 @@ function bytesToSize(bytes) {
             <input type="submit"  id="submit-btn" value="Upload" />-->
                   </form>
                 </div>
-                <span class="byline"> <h2>Nombre:</h2>
+                <div style="height:200px;">
+                <span class="byline2"> <h2>Nombre:</h2>
                 <?=$nombre?>
                 <?=$apellido?>
-                </span> <span class="byline"> <h2>Rut:</h2>
+                </span><br /> <span class="byline2"> <h2>Rut:</h2>
                 <?=$rut?>
-                </span> <span class="byline"> <h2>Sexo:</h2>
+                </span><br /> <span class="byline2"> <h2>Sexo:</h2>
                 <?php if($sexo==1){echo 'Masculino';}else{echo 'Femenino';}?>
-                </span> <span class="byline">
+                </span><br /> <span class="byline2">
                 <h2>Usuario:</h2> <?=$usuario?>
-                </span> <span class="byline">
+                </span><br /> <span class="byline2">
                 <h2>Email:</h2> <?=$email?>
-                </span>
+                </span><br /></div>
                 <header class="major">
                   <h2>Datos de cuenta</h2>
                 </header>
-                <span class="byline">
+                <span class="byline2">
                 <h3>Grupo de usuario:</h3>
                   <?php if($grupo == 0){echo 'Usuario basico';}else if($grupo == 10){echo 'Usuario empresa';}else if($grupo == 99){echo 'Administrador';}?>
                 
-                </span> <span class="byline">
+                </span><br /> <span class="byline2">
                 <h3>Cuenta de logins:</h3>
                   <?=$conteoLogings?>
                 
-                </span> <span class="byline">
+                </span><br /> <span class="byline2">
                 <h3>Fecha creacion de cuenta:</h3>
                   <?=$fecha_creacion?>
                 
-                </span>
+                </span><br />
                 <header class="major">
                   <h2>Ultimos login</h2>
                 </header>

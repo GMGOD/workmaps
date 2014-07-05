@@ -25,10 +25,13 @@
 		font-size: 1.35em;
 	}
 
-	.byline
+	span.byline
 	{
-		margin: 0.5em 0 0 0;
-		padding-bottom: 0.5em;
+		margin: 0.5em;
+	}
+	span.byline2
+	{
+		margin: 0.5em;
 	}
 	
 	header
@@ -127,7 +130,7 @@
 
 		ul.social
 		{
-			margin: 0 0 3.25em 0;
+			margin: 0 0 1.25em 0;
 		}
 
 			ul.social li
@@ -184,7 +187,7 @@
 
 		#footer-wrapper header
 		{
-			margin: 0 0 3em 0;
+			margin: 0 0 1em 0;
 		}
 		
 			#footer-wrapper header h2

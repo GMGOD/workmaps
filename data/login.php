@@ -1,14 +1,21 @@
 <script type="text/javascript" >
 $(document).ready(function(){
-	if(<?php echo $_GET['val']; ?> == 1){
-		$('#respError').css('display','inline');
-		$("#respError").html('<img src="./images/error.png" /> El usuario o la contrase&ntilde;a no coinciden.');
-	}else if(<?php echo $_GET['val']; ?> == 2){
-		$("#respError").html('<img src="./images/ok.png" /> Su cuenta ya ha sido activada, puede logear.');
-	}else if(<?php echo $_GET['val']; ?> == 3){
-		$("#respError").html('<img src="./images/error.png" /> Su cuenta esta baneada.');
-	}else if(<?php echo $_GET['val']; ?> == 4){
-		$("#respError").html('<img src="./images/error.png" /> Error al realizar la operacion');
+	if(<?php echo $_GET['val']; ?> == 1 || <?php echo $_GET['val']; ?> == 2 || <?php echo $_GET['val']; ?> == 3 || <?php echo $_GET['val']; ?> == 4){
+		$('#respError').css('display','inline-block');
+	}
+	switch(<?php echo $_GET['val']; ?>){
+		case 1:
+			$("#respError").html('<img src="./images/error.png" /> El usuario o la contrase&ntilde;a no coinciden.');
+			break;
+		case 2:
+			$("#respError").html('<img src="./images/ok.png" /> Su cuenta ya ha sido activada, puede logear.');
+			break;
+		case 3:
+			$("#respError").html('<img src="./images/error.png" /> Su cuenta esta baneada.');
+			break;
+		case 4:
+			$("#respError").html('<img src="./images/error.png" /> Error al realizar la operacion');
+			break;
 	}
 $(document).keypress(function(e) {
   if(e.which == 13) {
@@ -32,12 +39,12 @@ function validar(){
 
  	
 	if (ok1) MsgError = MsgError + "<span style='color:#F00'>*</span> Debe ingresar su usuario o E-mail <br>";
-	if (ok2) MsgError = MsgError + "<span style='color:#F00'>*</span> Debe ingresar su contrase&ntilde;a <br>";
+	if (ok2) MsgError = MsgError + "<span style='color:#F00'>*</span> Debe ingresar su contraseña <br>";
 
 
 	if (ok1 || ok2 ) {
-		$('#respError').css('display','inline');
-		$("#respError").html('<div> <h2> <img src="./images/error.png" /> Debe solucionar estos problemas antes de seguir</h2> <span class="byline">'+MsgError+"</span></div>");
+		$('#respError').css('display','inline-block');
+		$("#respError").html('<div> <h2> <span class="byline"><img src="./images/error.png" /> Debe solucionar estos problemas antes de seguir</span></h2> <span class="byline">'+MsgError+"</span></div>");
 	} else 
 	{
 		var frm = self.document.frm;

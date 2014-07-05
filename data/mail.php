@@ -51,7 +51,9 @@ $(document).keypress(function(e) {
                   <h3>Password</h3>
                   <input type="password" autocomplete="off"  name="txtPassword" id="txtPassword" autocomplete="off"/>
                   </span><br />
+                  <span class="byline">
                   <input type="button" id="btnEntrar" value="Enviar" onclick="mail()">
+                  </span><br />
                 </form>
               </header>
             </section>

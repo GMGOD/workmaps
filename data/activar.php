@@ -59,10 +59,13 @@ function validar(){
 													<header>
                                                     
                                                     <form name="frm" method="post">
-                                                    	<h3>Codigo de activacion</h3>
+                                                    	
                                                         <span class="byline">
-                                                        <input type="text" name="txtActivar" id="txtActivar" autocomplete="off"/></span>
+                                                        <h3>Codigo de activacion</h3>
+                                                        <input type="text" name="txtActivar" id="txtActivar" autocomplete="off"/></span><br />
+                                                        <span class="byline">
                                                         <input type="button" id="btnEntrar" value="Enviar" onclick="validar()">
+                                                        </span>
  													</form>
 													</header>
 												</section>

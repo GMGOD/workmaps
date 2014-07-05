@@ -46,7 +46,9 @@ $(document).keypress(function(e) {
                   <h3>Confirmar Password</h3>
                   <input type="password" name="txtPasswordConfirm" id="txtPasswordConfirm" autocomplete="off"/>
                   </span><br />
+                  <span class="byline">
                   <input type="button" id="btnEntrar" value="Enviar" onclick="password()">
+                  </span><br />
                 </form>
               </header>
             </section>

@@ -66,7 +66,7 @@ function beforeSubmit(){
 		
 		if( !$('#imageInput').val()) //check empty input filed
 		{
-			$("#respError").css('display','inline');
+			$("#respError").css('display','inline-block');
 			$("#respError").html("Are you kidding me?");
 			return false
 		}
@@ -81,7 +81,7 @@ function beforeSubmit(){
             case 'image/png': case 'image/gif': case 'image/jpeg': case 'image/pjpeg':
                 break;
             default:
-				$("#respError").css('display','inline');
+				$("#respError").css('display','inline-block');
                 $("#respError").html("<b>"+ftype+"</b> Unsupported file type!");
 				return false
         }
@@ -89,7 +89,7 @@ function beforeSubmit(){
 		//Allowed file size is less than 1 MB (1048576)
 		if(fsize>1048576) 
 		{
-			$("#respError").css('display','inline');
+			$("#respError").css('display','inline-block');
 			$("#respError").html("<b>"+bytesToSize(fsize) +"</b> Too big Image file! <br />Please reduce the size of your photo using an image editor.");
 			return false
 		}
@@ -102,7 +102,7 @@ function beforeSubmit(){
 	else
 	{
 		//respError error to older unsupported browsers that doesn't support HTML5 File API
-		$("#respError").css('display','inline');
+		$("#respError").css('display','inline-block');
 		$("#respError").html("Please upgrade your browser, because your current browser lacks some new features we need!");
 		return false;
 	}
@@ -188,7 +188,9 @@ function bytesToSize(bytes) {
                   <h3>Correo de contacto <span style="color:#36C">Opcional</span></h3>
                   <input type="text" name="correo" id="correo" value="" autocomplete="off"/>
                   </span><br />
+                  <span class="byline">
                   <input type="button" id="btnEntrar" value="Enviar" onclick="empresa()">
+                  </span>
                 </form>
               </header>
             </section>

@@ -76,7 +76,7 @@
 
 	.byline
 	{
-		display: block;
+		display: inline-block;
 		font-style: italic;
 	}
 	#respError{
@@ -105,16 +105,16 @@
     		font-size:1.3em;
     		padding:3px 5px;
     		outline:none;
-			width:80%;
+			width:350px;
 			float:left;
 		}
-	form input:focus,
-	form select:focus,
-	form textarea:focus {
-		border-color:#aaa;
-		-webkit-box-shadow:0px 0px 5px #aaa; -moz-box-shadow:0px 0px 5px #aaa;
-		-o-box-shadow:0 0 5px #aaa; box-shadow:0 0 5px #aaa;
-	}	
+		form input:focus,
+		form select:focus,
+		form textarea:focus {
+			border-color:#aaa;
+			-webkit-box-shadow:0px 0px 5px #aaa; -moz-box-shadow:0px 0px 5px #aaa;
+			-o-box-shadow:0 0 5px #aaa; box-shadow:0 0 5px #aaa;
+		}
 	br.clear
 	{
 		clear: both;
@@ -335,7 +335,7 @@
 			{
 				position: relative;
 				border-top: solid 1px #ddd;
-				padding: 1.3em 0 1.3em 7em;
+				padding: 1.5em 0 0.3em 5em;
 			}
 
 				ul.contact li h3
@@ -439,7 +439,6 @@
 			ul.divided li
 			{
 				border-top: solid 1px #ddd;
-				padding: 1em 0 1em 0;
 			}
 			
 			ul.divided li:first-child
