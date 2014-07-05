@@ -1,10 +1,10 @@
 <script type="text/javascript" >
 $(document).ready(function(){
 	if(<?php echo $_GET['val']; ?> == 1){
-				$('#respError').css('display','inline');
+				$('#respError').css('display','inline-block');
 				$("#respError").html('<img src="./images/error.png" /> El codigo no es valido.');
 	}else if(<?php echo $_GET['val']; ?> == 3){
-				$('#respError').css('display','inline');
+				$('#respError').css('display','inline-block');
 				$("#respError").html('<img src="./images/error.png" /> Ocurrio un problema, por favor vuelvalo a intentar.');
 	}
 $(document).keypress(function(e) {
