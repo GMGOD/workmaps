@@ -3,6 +3,10 @@
 /*$objDB = new MySQL;
 $objDB->conecta();
 $objDB->consulta("SET NAMES 'latin1'");*/
+/*namespace G;
+use PDO, PDOException, Exception;
+#Esto es un nuevo sistema de llado, es mas simple, para futuro cambio en workmaps con mas opciones...
+*/
 
 class MySQLPDO { 
 /* 
@@ -107,7 +111,12 @@ $rowcount = $pdo->editData(sql, $params);
 			} 
 		}
 		public function __destruct() { 
-			$this->conn = null;
+			try { 
+				$this->conn = null;
+			} 
+			catch(PDOException $e) { 
+			  throw new Exception('DATABASE ERROR: ' . $e->getMessage()); 
+			} 
 		}
 /* funciones pripias */
 /*	public function escaparString($value){#no funciona

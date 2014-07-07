@@ -3,14 +3,16 @@ require_once 'conexion.php';
 require_once 'funciones.php';
 class consultas{
 	var $mysql;
+	var $funciones;
 	
 	//CONSTRUCTOR DE LA CLASE
 	public function __construct(){
-		$host	=	"127.0.0.1";
-		$user	=	"root";
-		$pass	=	"root";
-		$db		=	"workmaps";
-			$this->mysql = new MySQLPDO($host,$user,$pass,$db);
+		$host				=	"127.0.0.1";
+		$user				=	"root";
+		$pass				=	"root";
+		$db					=	"workmaps";
+		$this->mysql		=	new MySQLPDO($host,$user,$pass,$db);
+		$this->funciones	=	new funciones();
 	}
 	#FUNCIONES BASICAS
 	public function iniciarSesion($usuario,$password){
